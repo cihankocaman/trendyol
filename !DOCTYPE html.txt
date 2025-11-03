@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Trendyol Açılıyor...</title>
-  <meta http-equiv="refresh" content="2;url=https://ty.gl/utrzbttukgaqs?aff_id=12345&utm_source=facebook&utm_medium=cpc&utm_campaign=aff_redirect">
+  <meta http-equiv="refresh" content="2;url=https://ty.gl/utrzbttukgaqs">
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -34,7 +34,7 @@
   <p>Lütfen birkaç saniye bekleyin.</p>
   <script>
     setTimeout(function() {
-      window.location.href = "https://ty.gl/utrzbttukgaqs?aff_id=12345&utm_source=facebook&utm_medium=cpc&utm_campaign=aff_redirect";
+      window.location.href = "https://ty.gl/utrzbttukgaqs";
     }, 2000);
   </script>
 </body>
