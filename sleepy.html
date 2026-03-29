@@ -10,9 +10,9 @@
     var ua = navigator.userAgent.toLowerCase();
 
     if (/android/.test(ua)) {
-      // Android: intent URL ile uygulamayı zorla aç, uygulama yoksa web URL'ye düş
+      // Android: intent URL ile uygulamayı aç, yoksa web URL'ye düş
       window.location.href =
-        "intent://ty.gl/7doah8ugjmrzn#Intent;scheme=https;package=trendyol.com.tr;S.browser_fallback_url=" +
+        "intent://ty.gl/7doah8ugjmrzn#Intent;scheme=https;package=com.trendyol.android;S.browser_fallback_url=" +
         encodeURIComponent(webUrl) +
         ";end";
     } else if (/iphone|ipad|ipod/.test(ua)) {
@@ -20,7 +20,6 @@
       var timer = setTimeout(function () {
         window.location.replace(webUrl);
       }, 1500);
-      // Uygulama açılırsa sayfa arka plana geçer; gereksiz yönlendirmeyi iptal et
       document.addEventListener("visibilitychange", function () {
         if (document.hidden) {
           clearTimeout(timer);
