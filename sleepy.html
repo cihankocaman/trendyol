@@ -4,75 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Yönlendiriliyor...</title>
-  <style>
-    /* Başlangıçta her şeyi gizle, sadece Android ise görünecek */
-    body {
-      font-family: sans-serif;
-      display: none; 
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      margin: 0;
-      background-color: #ffffff;
-    }
-    .container { text-align: center; padding: 20px; }
-    .btn {
-      display: inline-block;
-      margin-top: 20px;
-      padding: 15px 30px;
-      background-color: #f27a1a;
-      color: white;
-      text-decoration: none;
-      border-radius: 8px;
-      font-weight: bold;
-    }
-  </style>
 
   <script>
-    var webUrl = "https://ty.gl/7doah8ugjmrzn";
-    var ua = navigator.userAgent.toLowerCase();
-    var isAndroid = /android/.test(ua);
-    var isIOS = /iphone|ipad|ipod/.test(ua);
-
-    function openAndroidApp() {
-      var androidIntent = "intent://ty.gl/7doah8ugjmrzn#Intent;scheme=https;package=com.trendyol.android;S.browser_fallback_url=" + encodeURIComponent(webUrl) + ";end";
-      window.location.href = androidIntent;
-    }
-
-    window.onload = function() {
-      if (isIOS) {
-        // iOS: Hiçbir şey göstermeden direkt yönlendir
-        window.location.href = "trendyol://ty.gl/7doah8ugjmrzn";
-        
-        // Uygulama yoksa 2 saniye sonra web'e at (Safari/Instagram fallback)
-        setTimeout(function() {
-          window.location.replace(webUrl);
-        }, 2000);
-
-      } else if (isAndroid) {
-        // Android: Sayfayı görünür yap ve yönlendirmeyi dene
-        document.body.style.display = "flex";
-        
-        // Önce otomatik dene (Belki Meta izin verir)
-        setTimeout(openAndroidApp, 500);
-
-      } else {
-        // Masaüstü: Direkt web
-        window.location.replace(webUrl);
-      }
-    };
+    // Cache etkisini azaltmak için küçük bir "cache-bust" ekleyerek yönlendiriyoruz
+    window.location.replace("https://t.jo.my/kvudn3");
   </script>
 </head>
-<body>
-
-  <div class="container">
-    <p>Trendyol uygulamasına yönlendiriliyorsunuz...</p>
-    <div style="margin: 20px 0;">
-       <small>Uygulama otomatik açılmazsa lütfen aşağıdaki butona tıklayın:</small>
-    </div>
-    <a href="javascript:void(0);" onclick="openAndroidApp()" class="btn">UYGULAMADA AÇ</a>
-  </div>
-
-</body>
+<body></body>
 </html>
