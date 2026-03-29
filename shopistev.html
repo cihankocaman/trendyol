@@ -6,8 +6,31 @@
   <title>Yönlendiriliyor...</title>
 
   <script>
-    // Cache etkisini azaltmak için küçük bir "cache-bust" ekleyerek yönlendiriyoruz
-    window.location.replace("https://ty.gl/nqugw9ttry79a");
+    var webUrl = "https://ty.gl/nqugw9ttry79a";
+    var ua = navigator.userAgent.toLowerCase();
+
+    if (/android/.test(ua)) {
+      // Android: intent URL ile uygulamayı zorla aç, uygulama yoksa web URL'ye düş
+      window.location.href =
+        "intent://ty.gl/nqugw9ttry79a#Intent;scheme=https;package=trendyol.com.tr;S.browser_fallback_url=" +
+        encodeURIComponent(webUrl) +
+        ";end";
+    } else if (/iphone|ipad|ipod/.test(ua)) {
+      // iOS: önce özel şema ile uygulamayı aç, açılmazsa web URL'ye düş
+      var timer = setTimeout(function () {
+        window.location.replace(webUrl);
+      }, 1500);
+      // Uygulama açılırsa sayfa arka plana geçer; gereksiz yönlendirmeyi iptal et
+      document.addEventListener("visibilitychange", function () {
+        if (document.hidden) {
+          clearTimeout(timer);
+        }
+      });
+      window.location.href = "trendyol://ty.gl/nqugw9ttry79a";
+    } else {
+      // Masaüstü veya diğer cihazlar: doğrudan web URL'ye yönlendir
+      window.location.replace(webUrl);
+    }
   </script>
 </head>
 <body></body>
