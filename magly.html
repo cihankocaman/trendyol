@@ -4,26 +4,82 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Yönlendiriliyor...</title>
+  <style>
+    /* Varsayılan olarak her şey gizli */
+    body {
+      margin: 0;
+      padding: 0;
+      display: none; /* Hiçbir şey gösterme */
+      font-family: -apple-system, sans-serif;
+      height: 100vh;
+      align-items: center;
+      justify-content: center;
+      background-color: #ffffff;
+    }
+    .container { text-align: center; width: 90%; }
+    .btn {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 16px 32px;
+      background-color: #f27a1a;
+      color: white;
+      text-decoration: none;
+      border-radius: 10px;
+      font-weight: bold;
+    }
+  </style>
 
   <script>
-    // Cache etkisini azaltmak için küçük bir "cache-bust" ekleyerek yönlendiriyoruz
-    window.location.replace("https://ty.gl/wr1kp5ii0ep4z");
+    var webUrl = "https://ty.gl/wy3hjfuoiyh4n";
+    var ua = navigator.userAgent.toLowerCase();
+    
+    // iOS tespiti (iPhone, iPad, iPod)
+    var isIOS = /iphone|ipad|ipod/.test(ua);
+    // Android tespiti
+    var isAndroid = /android/.test(ua);
+
+    function openApp() {
+      if (isAndroid) {
+        var androidIntent = "intent://ty.gl/wy3hjfuoiyh4n#Intent;scheme=https;package=com.trendyol.android;S.browser_fallback_url=" + encodeURIComponent(webUrl) + ";end";
+        window.location.href = androidIntent;
+      } else {
+        // iOS ve diğerleri için standart şema
+        window.location.href = "trendyol://ty.gl/wy3hjfuoiyh4n";
+      }
+    }
+
+    // Sayfa yüklendiğinde çalışacak ana mantık
+    window.onload = function() {
+      if (isIOS) {
+        // iOS ise ASLA sayfayı gösterme, direkt yönlendir
+        openApp();
+        // Uygulama yoksa 2.5 saniye sonra web'e at
+        setTimeout(function() {
+          window.location.replace(webUrl);
+        }, 2500);
+      } 
+      else if (isAndroid) {
+        // Android ise sayfayı görünür yap (Çünkü Meta engeli butona ihtiyaç duyar)
+        document.body.style.display = "flex";
+        // Önce otomatik denesin
+        setTimeout(openApp, 500);
+      } 
+      else {
+        // Masaüstü ise direkt web sitesi
+        window.location.replace(webUrl);
+      }
+    };
   </script>
 </head>
-<body></body>
+<body>
+
+  <div class="container">
+    <p>Trendyol uygulamasına yönlendiriliyorsunuz...</p>
+    <div style="margin: 15px 0; color: #666; font-size: 14px;">
+       Uygulama otomatik açılmazsa lütfen butona tıklayın:
+    </div>
+    <a href="javascript:void(0);" onclick="openApp()" class="btn">UYGULAMADA AÇ</a>
+  </div>
+
+</body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
