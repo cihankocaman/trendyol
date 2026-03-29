@@ -35,12 +35,16 @@
 
     function triggerApp() {
       if (isAndroid) {
-        // Facebook/Instagram içi tarayıcı Android'de intent'i bazen sadece tıklamayla kabul eder
-        var intentUrl = "intent://ty.gl/wy3hjfuoiyh4n#Intent;scheme=https;package=com.trendyol.android;S.browser_fallback_url=" + encodeURIComponent(webUrl) + ";end";
-        window.location.href = intentUrl;
+    // Intent yerine doğrudan trendyol linkini fırlatıyoruz, 
+    // Android sistemi bunu yakalayıp "Uygulama ile aç" demeli.
+      window.location.href = "https://www.trendyol.com/sr?q=sleepy"; 
+    
+    // Eğer yukarıdaki açmazsa yedek olarak senin ty.gl linkini 1 saniye sonra tetikle
+      setTimeout(function() {
+        window.location.href = "https://ty.gl/7doah8ugjmrzn";
+      }, 1000);
       } else {
-        window.location.href = "trendyol://ty.gl/wy3hjfuoiyh4n";
-        setTimeout(function() { window.location.replace(webUrl); }, 2000);
+      window.location.href = "trendyol://ty.gl/7doah8ugjmrzn";
       }
     }
 
