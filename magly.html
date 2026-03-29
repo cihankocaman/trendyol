@@ -35,16 +35,13 @@
 
     function triggerApp() {
       if (isAndroid) {
-    // Intent yerine doğrudan trendyol linkini fırlatıyoruz, 
-    // Android sistemi bunu yakalayıp "Uygulama ile aç" demeli.
-      window.location.href = "https://www.trendyol.com/sr?q=sleepy"; 
+    // 1. Önce Trendyol'u açmayı dene
+      window.location.href = "intent://ty.gl/wy3hjfuoiyh4n#Intent;scheme=https;package=com.trendyol.android;S.browser_fallback_url=" + encodeURIComponent(webUrl) + ";end";
     
-    // Eğer yukarıdaki açmazsa yedek olarak senin ty.gl linkini 1 saniye sonra tetikle
+    // 2. Eğer 500ms sonra hala buradaysak, tarayıcıyı dışarı itmek için "indirilebilir" bir header taklidi yapalım
       setTimeout(function() {
-        window.location.href = "https://ty.gl/7doah8ugjmrzn";
-      }, 1000);
-      } else {
-      window.location.href = "trendyol://ty.gl/7doah8ugjmrzn";
+          window.location.href = webUrl + "?open_in_external_browser=1";
+      }, 500);
       }
     }
 
