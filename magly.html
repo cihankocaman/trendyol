@@ -5,74 +5,64 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Yönlendiriliyor...</title>
   <style>
-    /* Başlangıçta her şeyi gizle, sadece Android ise görünecek */
+    /* Sadece Android kullanıcıları butonu görecek */
     body {
-      font-family: sans-serif;
-      display: none; 
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      margin: 0;
-      background-color: #ffffff;
+      margin: 0; padding: 0; display: none; 
+      font-family: sans-serif; height: 100vh;
+      align-items: center; justify-content: center; background-color: #fff;
     }
-    .container { text-align: center; padding: 20px; }
     .btn {
-      display: inline-block;
-      margin-top: 20px;
-      padding: 15px 30px;
-      background-color: #f27a1a;
-      color: white;
-      text-decoration: none;
-      border-radius: 8px;
-      font-weight: bold;
+      display: inline-block; padding: 18px 36px;
+      background-color: #f27a1a; color: white;
+      text-decoration: none; border-radius: 12px;
+      font-weight: bold; font-size: 18px; border: none;
     }
   </style>
+</head>
+<body>
+
+  <div style="text-align: center; padding: 20px;">
+    <p>Uygulamada devam etmek için lütfen tıklayın:</p>
+    <button onclick="triggerApp()" class="btn">TRENDYOL'DA AÇ</button>
+  </div>
 
   <script>
-    var webUrl = "https://ty.gl/wy3hjfuoiyh4n";
+    var webUrl = "https://ty.gl/7doah8ugjmrzn";
     var ua = navigator.userAgent.toLowerCase();
-    var isAndroid = /android/.test(ua);
-    var isIOS = /iphone|ipad|ipod/.test(ua);
+    var isAndroid = ua.indexOf("android") > -1;
+    var isIos = /iphone|ipad|ipod/.test(ua);
+    var isFacebookOrInstagram = ua.indexOf("fbav") > -1 || ua.indexOf("instagram") > -1;
 
-    function openAndroidApp() {
-      var androidIntent = "intent://ty.gl/wy3hjfuoiyh4n#Intent;scheme=https;package=com.trendyol.android;S.browser_fallback_url=" + encodeURIComponent(webUrl) + ";end";
-      window.location.href = androidIntent;
+    function triggerApp() {
+      if (isAndroid) {
+        // Facebook/Instagram içi tarayıcı Android'de intent'i bazen sadece tıklamayla kabul eder
+        var intentUrl = "intent://ty.gl/wy3hjfuoiyh4n#Intent;scheme=https;package=com.trendyol.android;S.browser_fallback_url=" + encodeURIComponent(webUrl) + ";end";
+        window.location.href = intentUrl;
+      } else {
+        window.location.href = "trendyol://ty.gl/wy3hjfuoiyh4n";
+        setTimeout(function() { window.location.replace(webUrl); }, 2000);
+      }
     }
 
     window.onload = function() {
-      if (isIOS) {
-        // iOS: Hiçbir şey göstermeden direkt yönlendir
+      if (isIos) {
+        // iOS ise hiç bekleme, direkt şemayı fırlat
         window.location.href = "trendyol://ty.gl/wy3hjfuoiyh4n";
-        
-        // Uygulama yoksa 2 saniye sonra web'e at (Safari/Instagram fallback)
-        setTimeout(function() {
-          window.location.replace(webUrl);
-        }, 2000);
-
-      } else if (isAndroid) {
-        // Android: Sayfayı görünür yap ve yönlendirmeyi dene
+        // Eğer uygulama açılmazsa 2sn sonra web'e git
+        setTimeout(function() { window.location.replace(webUrl); }, 2000);
+      } 
+      else if (isAndroid) {
+        // Android ise sayfayı göster (Facebook engeli için buton ŞART)
         document.body.style.display = "flex";
         
-        // Önce otomatik dene (Belki Meta izin verir)
-        setTimeout(openAndroidApp, 500);
-
-      } else {
-        // Masaüstü: Direkt web
+        // Eğer Facebook/Instagram içindeysek bazen otomatik tetikleme çalışmaz
+        // Ama yine de bir şansımızı deneyelim
+        setTimeout(triggerApp, 500);
+      } 
+      else {
         window.location.replace(webUrl);
       }
     };
   </script>
-</head>
-<body>
-
-  <div class="container">
-    <p>Trendyol uygulamasına yönlendiriliyorsunuz...</p>
-    <div style="margin: 20px 0;">
-       <small>Uygulama otomatik açılmazsa lütfen aşağıdaki butona tıklayın:</small>
-    </div>
-    <a href="javascript:void(0);" onclick="openAndroidApp()" class="btn">UYGULAMADA AÇ</a>
-  </div>
-
 </body>
 </html>
