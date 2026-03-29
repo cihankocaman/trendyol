@@ -6,31 +6,62 @@
   <title>Yönlendiriliyor...</title>
 
   <script>
+    // Gidilecek son hedef (Web URL)
     var webUrl = "https://ty.gl/7doah8ugjmrzn";
     var ua = navigator.userAgent.toLowerCase();
 
-    if (/android/.test(ua)) {
-      // Android: intent URL ile uygulamayı aç, yoksa web URL'ye düş
-      window.location.href =
-        "intent://ty.gl/7doah8ugjmrzn#Intent;scheme=https;package=com.trendyol.android;S.browser_fallback_url=" +
-        encodeURIComponent(webUrl) +
-        ";end";
-    } else if (/iphone|ipad|ipod/.test(ua)) {
-      // iOS: önce özel şema ile uygulamayı aç, açılmazsa web URL'ye düş
-      var timer = setTimeout(function () {
+    // Meta (Instagram/Facebook) içi tarayıcı kontrolü
+    var isMetaBrowser = ua.indexOf("instagram") > -1 || ua.indexOf("fbav") > -1 || ua.indexOf("messenger") > -1;
+
+    function redirect() {
+      if (/android/.test(ua)) {
+        // Android için doğru paket adı: com.trendyol.android
+        // S.browser_fallback_url: Uygulama yoksa gidilecek yer
+        var androidIntent = "intent://ty.gl/7doah8ugjmrzn#Intent;scheme=https;package=com.trendyol.android;S.browser_fallback_url=" + encodeURIComponent(webUrl) + ";end";
+        
+        window.location.href = androidIntent;
+
+        // Eğer intent çalışmazsa 2 saniye sonra web linkine zorla
+        setTimeout(function() {
+            window.location.replace(webUrl);
+        }, 2000);
+
+      } else if (/iphone|ipad|ipod/.test(ua)) {
+        // iOS: Önce özel şema (Deep Link) denemesi
+        window.location.href = "trendyol://ty.gl/7doah8ugjmrzn";
+
+        // Uygulama açılmazsa web linkine yönlendir
+        var timer = setTimeout(function () {
+          window.location.replace(webUrl);
+        }, 2000);
+
+        // Uygulama açılırsa arka planda yönlendirmeyi durdur
+        document.addEventListener("visibilitychange", function () {
+          if (document.hidden) {
+            clearTimeout(timer);
+          }
+        });
+
+      } else {
+        // Masaüstü veya diğer cihazlar
         window.location.replace(webUrl);
-      }, 1500);
-      document.addEventListener("visibilitychange", function () {
-        if (document.hidden) {
-          clearTimeout(timer);
-        }
-      });
-      window.location.href = "trendyol://ty.gl/7doah8ugjmrzn";
-    } else {
-      // Masaüstü veya diğer cihazlar: doğrudan web URL'ye yönlendir
-      window.location.replace(webUrl);
+      }
     }
+
+    // Sayfa yüklendiğinde yönlendirmeyi başlat
+    window.onload = function() {
+        // Meta tarayıcılarında bazen anlık tetikleme bloklanıyor, 
+        // 500ms gecikme ile çalıştırmak daha sağlıklı sonuç verir.
+        setTimeout(redirect, 500);
+    };
   </script>
 </head>
-<body></body>
+<body style="background: #ffffff; display: flex; justify-content: center; align-items: center; height: 100vh; font-family: sans-serif;">
+    <div style="text-align: center;">
+        <p>Trendyol uygulamasına yönlendiriliyorsunuz...</p>
+        <a href="https://ty.gl/7doah8ugjmrzn" style="color: #f27a1a; text-decoration: none; font-weight: bold;">
+            Yönlendirme gerçekleşmediyse buraya tıklayın.
+        </a>
+    </div>
+</body>
 </html>
