@@ -30,20 +30,20 @@
   </style>
 
   <script>
-    var webUrl = "https://ty.gl/7doah8ugjmrzn";
+    var webUrl = "https://ty.gl/wy3hjfuoiyh4n";
     var ua = navigator.userAgent.toLowerCase();
     var isAndroid = /android/.test(ua);
     var isIOS = /iphone|ipad|ipod/.test(ua);
 
     function openAndroidApp() {
-      var androidIntent = "intent://ty.gl/7doah8ugjmrzn#Intent;scheme=https;package=com.trendyol.android;S.browser_fallback_url=" + encodeURIComponent(webUrl) + ";end";
+      var androidIntent = "intent://ty.gl/wy3hjfuoiyh4n#Intent;scheme=https;package=com.trendyol.android;S.browser_fallback_url=" + encodeURIComponent(webUrl) + ";end";
       window.location.href = androidIntent;
     }
 
     window.onload = function() {
       if (isIOS) {
         // iOS: Hiçbir şey göstermeden direkt yönlendir
-        window.location.href = "trendyol://ty.gl/7doah8ugjmrzn";
+        window.location.href = "trendyol://ty.gl/wy3hjfuoiyh4n";
         
         // Uygulama yoksa 2 saniye sonra web'e at (Safari/Instagram fallback)
         setTimeout(function() {
