@@ -4,71 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Yönlendiriliyor...</title>
-  <style>
-    body {
-      margin: 0; padding: 0; display: none; 
-      font-family: sans-serif; height: 100vh;
-      align-items: center; justify-content: center; background-color: #fff;
-    }
-    .btn {
-      display: inline-block; padding: 18px 36px;
-      background-color: #f27a1a; color: white;
-      text-decoration: none; border-radius: 12px;
-      font-weight: bold; font-size: 18px; border: none;
-      cursor: pointer;
-    }
-  </style>
-</head>
-<body>
-
-  <div style="text-align: center; padding: 20px;">
-    <p>Uygulamada devam etmek için lütfen tıklayın:</p>
-    <button onclick="triggerApp()" class="btn">TRENDYOL'DA AÇ</button>
-  </div>
 
   <script>
-    // TAM OLARAK AÇILMASINI İSTEDİĞİN LİNK
-    var targetLink = "ty.gl/wy3hjfuoiyh4n"; 
-    var webUrl = "https://" + targetLink;
-    
-    var ua = navigator.userAgent.toLowerCase();
-    var isAndroid = ua.indexOf("android") > -1;
-    var isIos = /iphone|ipad|ipod/.test(ua);
-
-    function triggerApp() {
-      if (isAndroid) {
-        // Android için en temiz intent yapısı:
-        // 'intent://' den sonra linki koyuyoruz, en sona paketi ekliyoruz.
-        var androidIntent = "intent://" + targetLink + "#Intent;scheme=https;package=com.trendyol.android;S.browser_fallback_url=" + encodeURIComponent(webUrl) + ";end";
-        
-        window.location.href = androidIntent;
-
-        // Eğer uygulama açılmazsa (veya hata verirse) 1 saniye sonra web'e zorla
-        setTimeout(function() {
-            window.location.replace(webUrl);
-        }, 1000);
-      } else {
-        // iOS için
-        window.location.href = "trendyol://" + targetLink;
-        setTimeout(function() { window.location.replace(webUrl); }, 2000);
-      }
-    }
-
-    window.onload = function() {
-      if (isIos) {
-        // iOS ise direkt fırlat
-        triggerApp();
-      } 
-      else if (isAndroid) {
-        // Android ise butonu göster
-        document.body.style.display = "flex";
-        // Facebook engeli yoksa otomatik denesin
-        setTimeout(triggerApp, 500);
-      } 
-      else {
-        window.location.replace(webUrl);
-      }
-    };
+    // Cache etkisini azaltmak için küçük bir "cache-bust" ekleyerek yönlendiriyoruz
+    window.location.replace("https://ty.gl/y6u550bazyle0");
   </script>
-</body>
+</head>
+<body></body>
 </html>
