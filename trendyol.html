@@ -23,12 +23,15 @@
       max-width: 90%;
       width: 350px;
     }
-    /* Eski 'ty' kutusu yerine logo için yeni stil ekledik */
-    .brand-logo {
-      width: 160px; /* Logonun ekrandaki genişliği */
-      height: auto;
+    /* Uygulama ikonu için özel stil (iOS/Android görünümü) */
+    .app-icon {
+      width: 85px;
+      height: 85px;
       margin: 0 auto 20px auto;
       display: block;
+      border-radius: 20px; /* Yuvarlak köşeler */
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15); /* İkona derinlik katan gölge */
+      object-fit: cover;
     }
     h2 {
       font-size: 20px;
@@ -61,13 +64,13 @@
 
   <div class="card">
     
-    <!-- Orijinal Trendyol Logosu -->
-    <img src="https://cdn.dsmcdn.com/web/logo/ty-web.svg" alt="Trendyol Logo" class="brand-logo">
+    <!-- GitHub'a yüklediğiniz uygulama ikonunu buraya çağırıyoruz -->
+    <img src="image.png" alt="Trendyol Uygulama Logosu" class="app-icon">
     
     <h2>İndirimli Ürüne Git</h2>
     <p>Sorunsuz bir alışveriş deneyimi için ürünü doğrudan Trendyol uygulamasında açın.</p>
     
-    <!-- Linkiniz ve Android'i çözen target="_blank" kodu -->
+    <!-- Android sorununu çözen linkiniz -->
     <a href="https://ty.gl/s259vxrcgklsl" class="btn" target="_blank" rel="noopener noreferrer">Trendyol'da Aç</a>
   </div>
 
