@@ -23,14 +23,13 @@
       max-width: 90%;
       width: 350px;
     }
-    /* Uygulama ikonu için özel stil (iOS/Android görünümü) */
     .app-icon {
       width: 85px;
       height: 85px;
       margin: 0 auto 20px auto;
       display: block;
-      border-radius: 20px; /* Yuvarlak köşeler */
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15); /* İkona derinlik katan gölge */
+      border-radius: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
       object-fit: cover;
     }
     h2 {
@@ -43,20 +42,36 @@
       font-size: 14px;
       margin-bottom: 25px;
     }
+    
+    /* YENİ GELİŞMİŞ BUTON TASARIMI */
     .btn {
-      display: block;
-      background-color: #F27A1A; /* Trendyol Turuncusu */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      /* 3D Renk Geçişi */
+      background: linear-gradient(180deg, #f98e38 0%, #F27A1A 100%);
       color: #ffffff;
       text-decoration: none;
-      font-size: 16px;
+      font-size: 18px; /* Tıklanabilirliği artırmak için biraz büyütüldü */
       font-weight: bold;
       padding: 16px 20px;
       border-radius: 12px;
-      transition: background-color 0.2s ease;
+      /* Dışarıya turuncu parlama, içeriye beyaz ışık yansıması (3D efekti) */
+      box-shadow: 0 6px 16px rgba(242, 122, 26, 0.4), inset 0 2px 0 rgba(255, 255, 255, 0.2);
+      border: 1px solid #e06d15;
+      transition: all 0.15s ease-in-out;
     }
+    
+    /* Kullanıcı butona basılı tuttuğunda (Fiziksel çökme efekti) */
     .btn:active {
-      transform: scale(0.98);
-      background-color: #d96d17;
+      transform: translateY(4px); /* Buton aşağı kayar */
+      box-shadow: 0 2px 4px rgba(242, 122, 26, 0.3), inset 0 2px 0 rgba(255, 255, 255, 0.1); /* Gölge küçülür */
+      background: #F27A1A;
+    }
+
+    /* Buton içindeki ok ikonu için mesafe ayarı */
+    .btn svg {
+      margin-left: 8px;
     }
   </style>
 </head>
@@ -64,14 +79,19 @@
 
   <div class="card">
     
-    <!-- GitHub'a yüklediğiniz uygulama ikonunu buraya çağırıyoruz -->
     <img src="image.png" alt="Trendyol Uygulama Logosu" class="app-icon">
     
     <h2>İndirimli Ürüne Git</h2>
     <p>Sorunsuz bir alışveriş deneyimi için ürünü doğrudan Trendyol uygulamasında açın.</p>
     
-    <!-- Android sorununu çözen linkiniz -->
-    <a href="https://ty.gl/s259vxrcgklsl" class="btn" target="_blank" rel="noopener noreferrer">Trendyol'da Aç</a>
+    <!-- İkonlu ve 3D efektli yeni butonunuz -->
+    <a href="https://ty.gl/s259vxrcgklsl" class="btn" target="_blank" rel="noopener noreferrer">
+      Trendyol'da Aç
+      <!-- Yönlendirme Ok İkonu (Sağa bakan modern ok) -->
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+      </svg>
+    </a>
   </div>
 
 </body>
