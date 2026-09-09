@@ -23,18 +23,12 @@
       max-width: 90%;
       width: 350px;
     }
-    .icon {
-      width: 64px;
-      height: 64px;
-      margin: 0 auto 15px auto;
-      background-color: #F27A1A;
-      color: white;
-      border-radius: 12px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 32px;
-      font-weight: bold;
+    /* Eski 'ty' kutusu yerine logo için yeni stil ekledik */
+    .brand-logo {
+      width: 160px; /* Logonun ekrandaki genişliği */
+      height: auto;
+      margin: 0 auto 20px auto;
+      display: block;
     }
     h2 {
       font-size: 20px;
@@ -66,11 +60,14 @@
 <body>
 
   <div class="card">
-    <div class="icon">ty</div>
+    
+    <!-- Orijinal Trendyol Logosu -->
+    <img src="https://cdn.dsmcdn.com/web/logo/ty-web.svg" alt="Trendyol Logo" class="brand-logo">
+    
     <h2>İndirimli Ürüne Git</h2>
     <p>Sorunsuz bir alışveriş deneyimi için ürünü doğrudan Trendyol uygulamasında açın.</p>
     
-    <!-- LİNKİNİZİ AŞAĞIDAKİ TIRNAKLARIN İÇİNE YAPIŞTIRIN -->
+    <!-- Linkiniz ve Android'i çözen target="_blank" kodu -->
     <a href="https://ty.gl/s259vxrcgklsl" class="btn" target="_blank" rel="noopener noreferrer">Trendyol'da Aç</a>
   </div>
 
