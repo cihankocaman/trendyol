@@ -5,21 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Trendyol'a Yönlendiriliyorsunuz</title>
   
-  <!-- Cihaz Algılama ve Akıllı Yönlendirme Senaryosu -->
   <script>
-    // Yönlendirilecek Ortak Linkiniz
+    // HER YENİ ÜRÜNDE SADECE AŞAĞIDAKİ LİNKİ DEĞİŞTİRMENİZ YETERLİDİR
     var hedefLink = "https://ty.gl/s259vxrcgklsl";
     
-    // Cihazın işletim sistemini (iOS mu değil mi?) algıla
     var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent || navigator.vendor || window.opera) && !window.MSStream;
 
     if (isIOS) {
-      // 1. Senaryo: Cihaz iOS ise beklemeden anında uygulamaya fırlat
       window.location.replace(hedefLink);
     } else {
-      // 2. Senaryo: Android ise butonlu tasarımı ekranda görünür yap
       document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('android-card').style.display = 'block';
+        // Butonun içine yukarıdaki linki otomatik olarak yerleştirir
+        document.getElementById('action-btn').href = hedefLink;
       });
     }
   </script>
@@ -36,7 +34,6 @@
       text-align: center;
     }
     .card {
-      /* iPhone'larda beyaz sayfa yanıp sönmesin diye tasarım ilk saniyede gizli tutulur */
       display: none; 
       background: #ffffff;
       padding: 40px 30px;
@@ -87,14 +84,11 @@
 </head>
 <body>
 
-  <!-- id="android-card" eklendi, böylece sadece Android'de görünür olacak -->
   <div class="card" id="android-card">
-    
     <img src="image.png" alt="Trendyol Uygulama Logosu" class="app-icon">
-    
     <p>Sorunsuz bir alışveriş deneyimi için ürünü doğrudan Trendyol uygulamasında açın.</p>
     
-    <a href="https://ty.gl/s259vxrcgklsl" class="btn" target="_blank" rel="noopener noreferrer">
+    <a href="#" id="action-btn" class="btn" target="_blank" rel="noopener noreferrer">
       Trendyol'da Aç
       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
         <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
