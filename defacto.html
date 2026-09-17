@@ -4,6 +4,26 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Trendyol'a Yönlendiriliyorsunuz</title>
+
+  <!-- Meta Pixel Code -->
+  <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    
+    // Pixel ID eklendi
+    fbq('init', '1736991497350267'); 
+    fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=1736991497350267&ev=PageView&noscript=1"
+  /></noscript>
+  <!-- End Meta Pixel Code -->
   
   <script>
     // HER YENİ ÜRÜNDE SADECE AŞAĞIDAKİ LİNKİ DEĞİŞTİRMENİZ YETERLİDİR
@@ -12,7 +32,12 @@
     var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent || navigator.vendor || window.opera) && !window.MSStream;
 
     if (isIOS) {
-      window.location.replace(hedefLink);
+      // iOS cihazlarda yönlendirme anında olduğu için Meta'ya sinyal gitme payı bırakmak adına 500ms gecikme ekliyoruz
+      fbq('trackCustom', 'TrendyolaGecisDefacto');
+      fbq('trackCustom', 'TrendyolaGecisDefactoIOS');
+      setTimeout(function() {
+        window.location.replace(hedefLink);
+      }, 500);
     } else {
       document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('android-card').style.display = 'block';
@@ -88,7 +113,8 @@
     <img src="image.png" alt="Trendyol Uygulama Logosu" class="app-icon">
     <p>Sorunsuz bir alışveriş deneyimi için ürünü doğrudan Trendyol uygulamasında açın.</p>
     
-    <a href="#" id="action-btn" class="btn" target="_blank" rel="noopener noreferrer">
+    <!-- Butona onclick tetikleyicisi eklendi -->
+    <a href="#" id="action-btn" class="btn" target="_blank" rel="noopener noreferrer" onclick="fbq('trackCustom', 'TrendyolaGecisDefacto'); fbq('trackCustom', 'TrendyolaGecisDefactoAndroid');">
       Trendyol'da Aç
       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
         <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
