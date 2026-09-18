@@ -1,14 +1,486 @@
+```html
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Yönlendiriliyor...</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <title>Trendyol'a Yönlendiriliyorsunuz</title>
+
+  <!-- =========================================================
+       META PIXEL
+       ========================================================= -->
 
   <script>
-    // Cache etkisini azaltmak için küçük bir "cache-bust" ekleyerek yönlendiriyoruz
-    window.location.replace("https://ty.gl/f0vdg2w2xi0zs");
+    !function(f,b,e,v,n,t,s)
+    {
+      if(f.fbq)return;
+      n=f.fbq=function(){
+        n.callMethod ?
+        n.callMethod.apply(n,arguments) :
+        n.queue.push(arguments)
+      };
+
+      if(!f._fbq)f._fbq=n;
+      n.push=n;
+      n.loaded=!0;
+      n.version='2.0';
+      n.queue=[];
+
+      t=b.createElement(e);
+      t.async=!0;
+      t.src=v;
+
+      s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)
+    }(
+      window,
+      document,
+      'script',
+      'https://connect.facebook.net/en_US/fbevents.js'
+    );
+
+    /*
+     * SENİN PIXEL ID'N
+     */
+    fbq('init', '1637036251170241');
+
+    /*
+     * LPV için temel PageView
+     */
+    fbq('track', 'PageView');
+
   </script>
+
+  <noscript>
+    <img
+      height="1"
+      width="1"
+      style="display:none"
+      src="https://www.facebook.com/tr?id=1637036251170241&ev=PageView&noscript=1"
+    />
+  </noscript>
+
+  <!-- =========================================================
+       SAYFA AYARLARI
+       ========================================================= -->
+
+  <script>
+
+    /*
+     * HER ÜRÜNDE SADECE BU İKİ DEĞERİ DEĞİŞTİR
+     */
+
+    var urunAdi = "vichy";
+
+    var hedefLink = "https://ty.gl/qr2wc8r4ye4vj";
+
+
+    /*
+     * CİHAZ TESPİTİ
+     */
+
+    var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+    var isIOS =
+      /iPad|iPhone|iPod/.test(userAgent) ||
+      (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+
+    var isAndroid = /Android/i.test(userAgent);
+
+
+    /*
+     * UTM PARAMETRELERİNİ AL
+     *
+     * Örnek:
+     * ?utm_source=facebook
+     * &utm_medium=paid
+     * &utm_campaign=altinyildiz
+     * &utm_content=reklam1
+     */
+
+    var urlParams = new URLSearchParams(window.location.search);
+
+    var utmSource   = urlParams.get('utm_source') || '';
+    var utmMedium   = urlParams.get('utm_medium') || '';
+    var utmCampaign = urlParams.get('utm_campaign') || '';
+    var utmContent  = urlParams.get('utm_content') || '';
+
+
+    /*
+     * TRENDYOL CLICK EVENTİ
+     *
+     * Aynı kullanıcı butona birden fazla basarsa
+     * event'in tekrar tekrar gönderilmesini önlüyoruz.
+     */
+
+    var trendyolClickSent = false;
+
+
+    function sendTrendyolClick() {
+
+      if (trendyolClickSent) {
+        return;
+      }
+
+      trendyolClickSent = true;
+
+
+      /*
+       * Meta'ya gönderilen event
+       */
+
+      fbq('trackCustom', 'TrendyolClick', {
+
+        product: urunAdi,
+
+        device:
+          isIOS ? 'ios' :
+          isAndroid ? 'android' :
+          'other',
+
+        utm_source: utmSource,
+        utm_medium: utmMedium,
+        utm_campaign: utmCampaign,
+        utm_content: utmContent
+
+      });
+
+
+      /*
+       * İstersen Google Analytics / başka analiz sistemlerinde
+       * kullanabilmek için aynı anda dataLayer'a da gönderiyoruz.
+       */
+
+      window.dataLayer = window.dataLayer || [];
+
+      window.dataLayer.push({
+
+        event: 'trendyol_click',
+
+        product: urunAdi,
+
+        device:
+          isIOS ? 'ios' :
+          isAndroid ? 'android' :
+          'other',
+
+        utm_source: utmSource,
+        utm_medium: utmMedium,
+        utm_campaign: utmCampaign,
+        utm_content: utmContent
+
+      });
+
+    }
+
+
+    /*
+     * SAYFA AÇILDIKTAN SONRA
+     */
+
+    document.addEventListener('DOMContentLoaded', function() {
+
+      var card = document.getElementById('card');
+
+      var button = document.getElementById('action-btn');
+
+
+      /*
+       * Kartı göster
+       */
+
+      card.style.display = 'block';
+
+
+      /*
+       * Affiliate linkini butona koy
+       */
+
+      button.href = hedefLink;
+
+
+      /*
+       * Cihaz bilgisini ekrana yazdırmak zorunda değiliz.
+       *
+       * Ama CSS sınıfı olarak body'ye ekliyoruz.
+       */
+
+      if (isIOS) {
+
+        document.body.classList.add('ios');
+
+      } else if (isAndroid) {
+
+        document.body.classList.add('android');
+
+      } else {
+
+        document.body.classList.add('other');
+
+      }
+
+    });
+
+
+    /*
+     * TRENDYOL BUTONUNA BASILDIĞINDA
+     */
+
+    function trendyolButtonClick(event) {
+
+      sendTrendyolClick();
+
+      /*
+       * Normal link davranışına devam et.
+       *
+       * href zaten hedefLink'i içeriyor.
+       */
+
+    }
+
+  </script>
+
+
+  <!-- =========================================================
+       TASARIM
+       ========================================================= -->
+
+  <style>
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Helvetica,
+        Arial,
+        sans-serif;
+
+      background-color: #f8f9fa;
+
+      display: flex;
+
+      justify-content: center;
+
+      align-items: center;
+
+      min-height: 100vh;
+
+      margin: 0;
+
+      padding: 20px;
+
+      text-align: center;
+
+    }
+
+
+    .card {
+
+      display: none;
+
+      background: #ffffff;
+
+      padding: 40px 30px;
+
+      border-radius: 16px;
+
+      box-shadow:
+        0 4px 20px rgba(0,0,0,0.08);
+
+      max-width: 390px;
+
+      width: 100%;
+
+    }
+
+
+    .app-icon {
+
+      width: 85px;
+
+      height: 85px;
+
+      margin:
+        0 auto 20px auto;
+
+      display: block;
+
+      border-radius: 20px;
+
+      box-shadow:
+        0 4px 12px rgba(0,0,0,0.15);
+
+      object-fit: cover;
+
+    }
+
+
+    h1 {
+
+      font-size: 20px;
+
+      margin:
+        0 0 12px 0;
+
+      color: #222222;
+
+    }
+
+
+    p {
+
+      color: #666666;
+
+      font-size: 15px;
+
+      margin-bottom: 25px;
+
+      line-height: 1.5;
+
+    }
+
+
+    .btn {
+
+      display: flex;
+
+      justify-content: center;
+
+      align-items: center;
+
+      background:
+        linear-gradient(
+          180deg,
+          #f98e38 0%,
+          #F27A1A 100%
+        );
+
+      color: #ffffff;
+
+      text-decoration: none;
+
+      font-size: 18px;
+
+      font-weight: bold;
+
+      padding: 16px 20px;
+
+      border-radius: 12px;
+
+      box-shadow:
+        0 6px 16px rgba(242,122,26,0.4),
+        inset 0 2px 0 rgba(255,255,255,0.2);
+
+      border:
+        1px solid #e06d15;
+
+      transition:
+        all 0.15s ease-in-out;
+
+      cursor: pointer;
+
+    }
+
+
+    .btn:active {
+
+      transform: translateY(3px);
+
+      box-shadow:
+        0 2px 4px rgba(242,122,26,0.3);
+
+    }
+
+
+    .btn svg {
+
+      margin-left: 8px;
+
+    }
+
+
+    .small-text {
+
+      margin-top: 18px;
+
+      margin-bottom: 0;
+
+      font-size: 12px;
+
+      color: #999999;
+
+    }
+
+  </style>
+
 </head>
-<body></body>
+
+
+<body>
+
+
+  <div class="card" id="card">
+
+    <img
+      src="image.png"
+      alt="Trendyol"
+      class="app-icon"
+    >
+
+
+    <h1>Ürünü Trendyol'da Aç</h1>
+
+
+    <p>
+      Ürünü incelemek ve alışverişe devam etmek için
+      aşağıdaki butona dokunun.
+    </p>
+
+
+    <a
+      href="#"
+      id="action-btn"
+      class="btn"
+      target="_blank"
+      rel="noopener noreferrer"
+      onclick="trendyolButtonClick(event)"
+    >
+
+      Trendyol'da Aç
+
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="20"
+        height="20"
+        fill="currentColor"
+        viewBox="0 0 16 16"
+      >
+
+        <path
+          fill-rule="evenodd"
+          d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"
+        />
+
+      </svg>
+
+    </a>
+
+
+    <p class="small-text">
+      Trendyol'a yönlendiriliyorsunuz.
+    </p>
+
+  </div>
+
+
+</body>
 </html>
+```
