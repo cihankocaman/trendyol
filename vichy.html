@@ -1,26 +1,37 @@
 <!DOCTYPE html>
 <html lang="tr">
+
 <head>
+
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+  >
 
   <title>Trendyol'a Yönlendiriliyorsunuz</title>
+
 
   <!-- =========================================================
        META PIXEL
        ========================================================= -->
 
   <script>
+
     !function(f,b,e,v,n,t,s)
     {
       if(f.fbq)return;
-      n=f.fbq=function(){
+
+      n=f.fbq=function()
+      {
         n.callMethod ?
         n.callMethod.apply(n,arguments) :
         n.queue.push(arguments)
       };
 
       if(!f._fbq)f._fbq=n;
+
       n.push=n;
       n.loaded=!0;
       n.version='2.0';
@@ -32,6 +43,7 @@
 
       s=b.getElementsByTagName(e)[0];
       s.parentNode.insertBefore(t,s)
+
     }(
       window,
       document,
@@ -39,36 +51,42 @@
       'https://connect.facebook.net/en_US/fbevents.js'
     );
 
-    /*
-     * SENİN PIXEL ID'N
-     */
-    fbq('init', '1637036251170241');
 
     /*
-     * LPV için temel PageView
+     * META PIXEL ID
      */
+
+    fbq('init', '1736991497350267');
+
+
+    /*
+     * SAYFA GÖRÜNTÜLEME
+     */
+
     fbq('track', 'PageView');
 
   </script>
 
+
   <noscript>
+
     <img
       height="1"
       width="1"
       style="display:none"
-      src="https://www.facebook.com/tr?id=1637036251170241&ev=PageView&noscript=1"
-    />
+      src="https://www.facebook.com/tr?id=1736991497350267&ev=PageView&noscript=1"
+    >
+
   </noscript>
 
+
   <!-- =========================================================
-       SAYFA AYARLARI
+       ÜRÜN AYARLARI
+       
+       YENİ ÜRÜNDE SADECE BU İKİ SATIRI DEĞİŞTİR
        ========================================================= -->
 
   <script>
-
-    /*
-     * HER ÜRÜNDE SADECE BU İKİ DEĞERİ DEĞİŞTİR
-     */
 
     var urunAdi = "vichy";
 
@@ -79,162 +97,259 @@
      * CİHAZ TESPİTİ
      */
 
-    var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+    var userAgent =
+      navigator.userAgent ||
+      navigator.vendor ||
+      window.opera;
+
 
     var isIOS =
       /iPad|iPhone|iPod/.test(userAgent) ||
-      (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+      (
+        navigator.platform === 'MacIntel' &&
+        navigator.maxTouchPoints > 1
+      );
 
-    var isAndroid = /Android/i.test(userAgent);
+
+    var isAndroid =
+      /Android/i.test(userAgent);
 
 
     /*
-     * UTM PARAMETRELERİNİ AL
-     *
-     * Örnek:
-     * ?utm_source=facebook
-     * &utm_medium=paid
-     * &utm_campaign=altinyildiz
-     * &utm_content=reklam1
+     * UTM PARAMETRELERİ
      */
 
-    var urlParams = new URLSearchParams(window.location.search);
+    var urlParams =
+      new URLSearchParams(window.location.search);
 
-    var utmSource   = urlParams.get('utm_source') || '';
-    var utmMedium   = urlParams.get('utm_medium') || '';
-    var utmCampaign = urlParams.get('utm_campaign') || '';
-    var utmContent  = urlParams.get('utm_content') || '';
+
+    var utmSource =
+      urlParams.get('utm_source') || '';
+
+
+    var utmMedium =
+      urlParams.get('utm_medium') || '';
+
+
+    var utmCampaign =
+      urlParams.get('utm_campaign') || '';
+
+
+    var utmContent =
+      urlParams.get('utm_content') || '';
 
 
     /*
-     * TRENDYOL CLICK EVENTİ
-     *
-     * Aynı kullanıcı butona birden fazla basarsa
-     * event'in tekrar tekrar gönderilmesini önlüyoruz.
+     * TRENDYOL CLICK EVENTİNİN
+     * SADECE 1 KEZ GÖNDERİLMESİNİ SAĞLAR
      */
 
     var trendyolClickSent = false;
 
 
-    function sendTrendyolClick() {
+    function sendTrendyolClick()
+    {
 
-      if (trendyolClickSent) {
+      if (trendyolClickSent)
+      {
         return;
       }
+
 
       trendyolClickSent = true;
 
 
       /*
-       * Meta'ya gönderilen event
+       * META CUSTOM EVENT
        */
 
-      fbq('trackCustom', 'TrendyolClick', {
+      fbq(
+        'trackCustom',
+        'TrendyolClick',
+        {
 
-        product: urunAdi,
+          product: urunAdi,
 
-        device:
-          isIOS ? 'ios' :
-          isAndroid ? 'android' :
-          'other',
+          device:
+            isIOS
+              ? 'ios'
+              : isAndroid
+                ? 'android'
+                : 'other',
 
-        utm_source: utmSource,
-        utm_medium: utmMedium,
-        utm_campaign: utmCampaign,
-        utm_content: utmContent
+          utm_source: utmSource,
 
-      });
+          utm_medium: utmMedium,
+
+          utm_campaign: utmCampaign,
+
+          utm_content: utmContent
+
+        }
+      );
 
 
       /*
-       * İstersen Google Analytics / başka analiz sistemlerinde
-       * kullanabilmek için aynı anda dataLayer'a da gönderiyoruz.
+       * İSTEĞE BAĞLI DATA LAYER
        */
 
-      window.dataLayer = window.dataLayer || [];
+      window.dataLayer =
+        window.dataLayer || [];
 
-      window.dataLayer.push({
 
-        event: 'trendyol_click',
+      window.dataLayer.push(
+        {
 
-        product: urunAdi,
+          event: 'trendyol_click',
 
-        device:
-          isIOS ? 'ios' :
-          isAndroid ? 'android' :
-          'other',
+          product: urunAdi,
 
-        utm_source: utmSource,
-        utm_medium: utmMedium,
-        utm_campaign: utmCampaign,
-        utm_content: utmContent
+          device:
+            isIOS
+              ? 'ios'
+              : isAndroid
+                ? 'android'
+                : 'other',
 
-      });
+          utm_source: utmSource,
+
+          utm_medium: utmMedium,
+
+          utm_campaign: utmCampaign,
+
+          utm_content: utmContent
+
+        }
+      );
 
     }
 
 
     /*
-     * SAYFA AÇILDIKTAN SONRA
+     * SAYFA YÜKLENDİĞİNDE
      */
 
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener(
+      'DOMContentLoaded',
+      function()
+      {
 
-      var card = document.getElementById('card');
-
-      var button = document.getElementById('action-btn');
-
-
-      /*
-       * Kartı göster
-       */
-
-      card.style.display = 'block';
+        var card =
+          document.getElementById('card');
 
 
-      /*
-       * Affiliate linkini butona koy
-       */
-
-      button.href = hedefLink;
+        var button =
+          document.getElementById('action-btn');
 
 
-      /*
-       * Cihaz bilgisini ekrana yazdırmak zorunda değiliz.
-       *
-       * Ama CSS sınıfı olarak body'ye ekliyoruz.
-       */
+        /*
+         * =====================================================
+         * iOS
+         * =====================================================
+         *
+         * Kart GÖSTERİLMEZ.
+         *
+         * Önce TrendyolClick gönderilir.
+         *
+         * 500 ms sonra direkt Trendyol'a gidilir.
+         */
 
-      if (isIOS) {
+        if (isIOS)
+        {
 
-        document.body.classList.add('ios');
+          document.body.classList.add('ios');
 
-      } else if (isAndroid) {
 
-        document.body.classList.add('android');
+          /*
+           * Trendyol geçişini ölç
+           */
 
-      } else {
+          sendTrendyolClick();
+
+
+          /*
+           * Pixel'in event'i göndermesi için
+           * kısa bir süre bekle.
+           */
+
+          setTimeout(
+            function()
+            {
+
+              window.location.replace(
+                hedefLink
+              );
+
+            },
+            500
+          );
+
+
+          return;
+
+        }
+
+
+        /*
+         * =====================================================
+         * ANDROID
+         * =====================================================
+         *
+         * Kart gösterilir.
+         *
+         * Kullanıcı butona bastığında
+         * TrendyolClick gönderilir.
+         */
+
+        if (isAndroid)
+        {
+
+          document.body.classList.add('android');
+
+
+          card.style.display =
+            'block';
+
+
+          button.href =
+            hedefLink;
+
+
+          return;
+
+        }
+
+
+        /*
+         * =====================================================
+         * DİĞER CİHAZLAR
+         * =====================================================
+         *
+         * Android gibi buton göster.
+         */
 
         document.body.classList.add('other');
 
-      }
 
-    });
+        card.style.display =
+          'block';
+
+
+        button.href =
+          hedefLink;
+
+      }
+    );
 
 
     /*
      * TRENDYOL BUTONUNA BASILDIĞINDA
      */
 
-    function trendyolButtonClick(event) {
+    function trendyolButtonClick()
+    {
 
       sendTrendyolClick();
-
-      /*
-       * Normal link davranışına devam et.
-       *
-       * href zaten hedefLink'i içeriyor.
-       */
 
     }
 
@@ -250,6 +365,7 @@
     * {
       box-sizing: border-box;
     }
+
 
     body {
 
@@ -391,7 +507,8 @@
 
     .btn:active {
 
-      transform: translateY(3px);
+      transform:
+        translateY(3px);
 
       box-shadow:
         0 2px 4px rgba(242,122,26,0.3);
@@ -426,7 +543,15 @@
 <body>
 
 
-  <div class="card" id="card">
+  <!-- =========================================================
+       ANDROID / DİĞER CİHAZLARDA GÖSTERİLECEK KART
+       ========================================================= -->
+
+  <div
+    class="card"
+    id="card"
+  >
+
 
     <img
       src="image.png"
@@ -435,7 +560,9 @@
     >
 
 
-    <h1>Ürünü Trendyol'da Aç</h1>
+    <h1>
+      Ürünü Trendyol'da Aç
+    </h1>
 
 
     <p>
@@ -450,10 +577,11 @@
       class="btn"
       target="_blank"
       rel="noopener noreferrer"
-      onclick="trendyolButtonClick(event)"
+      onclick="trendyolButtonClick()"
     >
 
       Trendyol'da Aç
+
 
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -477,8 +605,10 @@
       Trendyol'a yönlendiriliyorsunuz.
     </p>
 
+
   </div>
 
 
 </body>
+
 </html>
